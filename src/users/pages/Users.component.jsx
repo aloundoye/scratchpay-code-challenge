@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import UsersList from '../components/UsersList.component';
+import ProductList from '../components/ProductList.component';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal.component';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner.component';
 import { useHttpClient } from '../../shared/hooks/http-hook';
 
-const Users = () => {
+const Products = () => {
+  const [loadedProducts, setLoadedProducts] = useState();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  const [loadedUsers, setLoadedUsers] = useState();
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchProducts = async () => {
       try {
-        const data = await sendRequest('http://localhost:5000/api/users/');
-        setLoadedUsers(data.users);
+        const data = await sendRequest('http://localhost:5000/api/products');
+        setLoadedProducts(data.products);
       } catch (err) {}
     };
 
-    fetchUsers();
+    fetchProducts();
   }, []);
 
   return (
@@ -28,11 +28,9 @@ const Users = () => {
           <LoadingSpinner asOverlay />
         </div>
       )}
-      {!isLoading && loadedUsers && (
-        <UsersList users={loadedUsers} error={error} />
-      )}
+      {!isLoading && loadedProducts && <ProductList products={loadedProducts} error={error}/>}
     </>
   );
 };
 
-export default Users;
+export default Products;
