@@ -1,14 +1,14 @@
 import Card from '../../shared/components/UIElements/Card.component';
-import ProductItem from './ProductItem.component';
+import UserItem from './UserItem.component';
 
-import './ProductList.styles.css';
+import './UserList.styles.css';
 
-const ProductList = ({ products, error }) => {
-  if (products.length === 0 || error) {
+const UserList = ({ users, error }) => {
+  if (users.length === 0 || error) {
     return (
       <div className="product-list center">
         <Card>
-          <h2>Aucun produit trouve</h2>
+          <h2>No user found</h2>
         </Card>
       </div>
     );
@@ -16,11 +16,11 @@ const ProductList = ({ products, error }) => {
 
   return (
     <ul className="product-list">
-      {products.map((product) => (
-        <ProductItem key={product.id} product={product} />
+      {users.map((user) => (
+        <UserItem key={user.id} user={user} />
       ))}
     </ul>
   );
 };
 
-export default ProductList;
+export default UserList;
