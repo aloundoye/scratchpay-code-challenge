@@ -17,6 +17,7 @@ const UserItem = ({ user }) => {
     setShowConfirmModal(false);
   };
   const confirmDeleteHandler = () => {
+    
     setShowConfirmModal(false);
   };
   return (
@@ -42,8 +43,8 @@ const UserItem = ({ user }) => {
       <li className="user-item">
         <Card className="user-item__content">
           <div className="user-item__info">
-            <h2>id: {user.id}</h2>
-            <h2>Name: {user.name}</h2>
+            <h2>email: {user.email}</h2>
+            <h2>Name: {`${user.firstName} ${user.lastName}`}</h2>
             <h2>Role: {user.role}</h2>
             <h2>Status: {user.status}</h2>
           </div>

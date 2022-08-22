@@ -1,14 +1,6 @@
 import { USERS_ACTION_TYPES } from './users.types';
-import { v4 as uuid } from 'uuid';
 
-const USERS_INITIAL_STATE = [
-  {
-    id: uuid(),
-    name: 'Alassane',
-    role: 'Accountant',
-    status: 'inactive',
-  },
-];
+const USERS_INITIAL_STATE = [];
 
 export const usersReducer = (state = USERS_INITIAL_STATE, action) => {
   switch (action.type) {
