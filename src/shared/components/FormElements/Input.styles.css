@@ -4,7 +4,8 @@
 
 .form-control label,
 .form-control input,
-.form-control textarea {
+.form-control textarea,
+.form-control select {
   display: block;
 }
 
@@ -14,7 +15,8 @@
 }
 
 .form-control input,
-.form-control textarea {
+.form-control textarea,
+.form-control select {
   width: 100%;
   font: inherit;
   border: 1px solid #ccc;
@@ -23,7 +25,8 @@
 }
 
 .form-control input:focus,
-.form-control textarea:focus {
+.form-control textarea:focus,
+.form-control select:focus {
   outline: none;
   background: #ebebeb;
   border-color: #510077;

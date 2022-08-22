@@ -7,15 +7,7 @@ import NewUser from './users/pages/NewUser.component';
 import Layout from './shared/components/Layout/Layout.component';
 import { useEffect } from 'react';
 
-const purgeState = async () => {
-  await persistor.purge();
-};
-
 function App() {
-  useEffect(() => {
-    purgeState();
-  }, []);
-
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

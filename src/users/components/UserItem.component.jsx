@@ -1,13 +1,16 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Card from '../../shared/components/UIElements/Card.component';
 import Button from '../../shared/components/FormElements/Button.component';
 import Modal from '../../shared/components/UIElements/Modal.component..jsx';
 
 import './UserItem.styles.css';
+import { deleteUser } from '../../shared/store/users/users.action';
 
 const UserItem = ({ user }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const dispatch = useDispatch();
 
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);
@@ -17,7 +20,7 @@ const UserItem = ({ user }) => {
     setShowConfirmModal(false);
   };
   const confirmDeleteHandler = () => {
-    
+    dispatch(deleteUser(user));
     setShowConfirmModal(false);
   };
   return (
@@ -43,7 +46,7 @@ const UserItem = ({ user }) => {
       <li className="user-item">
         <Card className="user-item__content">
           <div className="user-item__info">
-            <h2>email: {user.email}</h2>
+            <h2>Email: {user.email}</h2>
             <h2>Name: {`${user.firstName} ${user.lastName}`}</h2>
             <h2>Role: {user.role}</h2>
             <h2>Status: {user.status}</h2>

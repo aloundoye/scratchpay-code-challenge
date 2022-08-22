@@ -18,7 +18,6 @@ import './UserForm.styles.css';
 import { addUser } from '../../shared/store/users/users.action';
 
 const initialStates = {
-  id: { value: uuid(), isValid: true },
   firstName: { value: '', isValid: false },
   lastName: { value: '', isValid: false },
   email: { value: '', isValid: false },
@@ -41,19 +40,18 @@ const NewUser = () => {
     const existEmail = users.find(
       (user) => user.email === formState.inputs.email.value
     );
-    console.log(existEmail);
 
     if (existEmail) {
       setError('E-mail already exists!!!');
     } else {
       dispatch(
         addUser({
-          id: formState.inputs.id.value,
+          id: uuid(),
           firstName: formState.inputs.firstName.value,
           lastName: formState.inputs.lastName.value,
           email: formState.inputs.email.value,
-          role: formState.inputs.role.value,
-          status: formState.inputs.status.value,
+          role: event.target.role.value,
+          status: event.target.status.value,
         })
       );
       navigate('/');
@@ -71,6 +69,7 @@ const NewUser = () => {
       <ErrorModal error={error} onClear={clearError} />
       <form className="product-form" onSubmit={userSubmitHandler}>
         {isLoading && <LoadingSpinner asOverlay />}
+
         <Input
           id="firstName"
           element="input"
@@ -92,12 +91,28 @@ const NewUser = () => {
         <Input
           id="email"
           element="input"
-          type="text"
+          type="email"
           label="E-mail"
           validators={[VALIDATOR_EMAIL(), VALIDATOR_REQUIRE()]}
           errorText="Please add a valid e-mail"
           onInput={inputHandler}
         />
+        <div className="form-control">
+          <label for="role">Role</label>
+          <select name="role" id="role">
+            <option value="accountant">accountant</option>
+            <option value="admin">admin</option>
+            <option value="doctor">doctor</option>
+          </select>
+        </div>
+
+        <div className="form-control">
+          <label for="status">Status</label>
+          <select name="status" id="status">
+            <option value="active">active</option>
+            <option value="inactive">inactive</option>
+          </select>
+        </div>
 
         <Button type="submit" disabled={!formState.isValid}>
           ADD USER
