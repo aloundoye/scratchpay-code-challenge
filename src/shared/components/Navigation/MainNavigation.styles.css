@@ -26,6 +26,10 @@
   color: white;
 }
 
+.main-navigation__title img {
+  width: 200px;
+}
+
 .main-navigation__header-nav {
   display: none;
 }

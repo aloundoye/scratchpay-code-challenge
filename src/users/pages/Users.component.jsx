@@ -1,12 +1,10 @@
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
+
+import { selectUsers } from '../../shared/store/users/users.selector';
 import UserList from '../components/UserList.component';
 
 const Users = () => {
-  const users = useSelector();  
-
-  if (users.length === 0) {
-    return <div>Not user found</div>;
-  }
+  const users = useSelector(selectUsers);
 
   return users && <UserList users={users} />;
 };

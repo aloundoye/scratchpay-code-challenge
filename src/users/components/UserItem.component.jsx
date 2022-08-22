@@ -1,14 +1,12 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 import Card from '../../shared/components/UIElements/Card.component';
 import Button from '../../shared/components/FormElements/Button.component';
 import Modal from '../../shared/components/UIElements/Modal.component..jsx';
-import { AuthContext } from '../../shared/context/auth-context';
 
-import './ProductItem.styles.css';
+import './UserItem.styles.css';
 
-const ProductItem = ({ product }) => {
-  const auth = useContext(AuthContext);
+const UserItem = ({ user }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const showDeleteWarningHandler = () => {
@@ -26,42 +24,34 @@ const ProductItem = ({ product }) => {
       <Modal
         show={showConfirmModal}
         onCancel={cancelDeleteWarningHandler}
-        header="Etes-vous sur ?"
-        footerClass="product-item__modal-actions"
+        header="Are you sure ?"
+        footerClass="user-item__modal-actions"
         footer={
           <>
             <Button inverse onClick={cancelDeleteWarningHandler}>
-              ANNULER
+              CANCEL
             </Button>
             <Button danger onClick={confirmDeleteHandler}>
-              SUPPRIMER
+              DELETE
             </Button>
           </>
         }
       >
-        <p>Voulez-vous vraiment supprimer ce produit ?</p>
+        <p>Do you really want to delete this user ?</p>
       </Modal>
-      <li className="product-item">
-        <Card className="product-item__content">
-          <div className="product-item__image">
-            <img src={product.imageUrl} alt={product.name} />
+      <li className="user-item">
+        <Card className="user-item__content">
+          <div className="user-item__info">
+            <h2>id: {user.id}</h2>
+            <h2>Name: {user.name}</h2>
+            <h2>Role: {user.role}</h2>
+            <h2>Status: {user.status}</h2>
           </div>
-          <div className="product-item__info">
-            <h2>{product.name}</h2>
-            <h4>
-              Prix: {new Intl.NumberFormat('fr-SN').format(product.price)} F CFA
-            </h4>
-            <h4>Quantite: {product.quantity}</h4>
-          </div>
-          <div className="product-item__actions">
-            {auth.isLoggedIn && (
-              <Button to={`/products/${product.id}`}>MODIFIER</Button>
-            )}
-            {auth.isLoggedIn && (
-              <Button danger onClick={showDeleteWarningHandler}>
-                SUPPRIMER
-              </Button>
-            )}
+          <div className="user-item__actions">
+            <Button to={`/users/${user.id}`}>EDIT</Button>
+            <Button danger onClick={showDeleteWarningHandler}>
+              DELETE
+            </Button>
           </div>
         </Card>
       </li>
@@ -69,4 +59,4 @@ const ProductItem = ({ product }) => {
   );
 };
 
-export default ProductItem;
+export default UserItem;

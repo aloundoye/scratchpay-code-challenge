@@ -1,71 +1,30 @@
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { useCallback, useEffect, useState } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { persistor } from './shared/store/store';
 
-import Users from './user/pages/Users.component';
-import NewProduct from './products/pages/NewProduct.component';
-import UserProducts from './products/pages/UserProducts.component';
+import Users from './users/pages/Users.component';
+// import NewUser from './users/pages/NewUser.component';
+// import UpdateUser from './users/pages/UpdateUser.component';
 import Layout from './shared/components/Layout/Layout.component';
-import UpdateProduct from './products/pages/UpdateProduct.component';
-import Auth from './user/pages/Auth.component';
-import { AuthContext } from './shared/context/auth-context';
-import Products from './products/pages/Products.component';
+import { useEffect } from 'react';
+
+const purgeState = async () => {
+  await persistor.purge();
+};
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState(false);
-
-  const navigate = useNavigate();
-
-  const login = useCallback((uid) => {
-    setIsLoggedIn(true);
-    setUserId(uid);
-  }, []);
-
-  const logout = useCallback(() => {
-    setIsLoggedIn(false);
-    setUserId(null);
-  }, []);
-
-  let routes;
-
-  if (isLoggedIn) {
-    routes = (
-      <>
-        <Route index element={<Users />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/:userId/products" element={<UserProducts />} />
-        <Route path="/products/new" element={<NewProduct />} />
-        <Route path="/products/:productId" element={<UpdateProduct />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </>
-    );
-  } else {
-    routes = (
-      <>
-        <Route index element={<Users />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/:userId/products" element={<UserProducts />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="*" element={<Navigate to="/auth" replace />} />
-      </>
-    );
-  }
-
   useEffect(() => {
-    if (isLoggedIn) {
-      return navigate('/');
-    }
-  }, [isLoggedIn]);
+    purgeState();
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout, userId }}>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          {routes}
-        </Route>
-      </Routes>
-    </AuthContext.Provider>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Users />} />
+        {/* <Route path="/users/new" element={<NewUser />} /> */}
+        {/* <Route path="/users/:userId" element={<UpdateUser />} /> */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
   );
 }
 

@@ -3,10 +3,10 @@ import UserItem from './UserItem.component';
 
 import './UserList.styles.css';
 
-const UserList = ({ users, error }) => {
-  if (users.length === 0 || error) {
+const UserList = ({ users }) => {
+  if (users.length === 0) {
     return (
-      <div className="product-list center">
+      <div className="user-list center">
         <Card>
           <h2>No user found</h2>
         </Card>
@@ -15,7 +15,7 @@ const UserList = ({ users, error }) => {
   }
 
   return (
-    <ul className="product-list">
+    <ul className="user-list">
       {users.map((user) => (
         <UserItem key={user.id} user={user} />
       ))}
