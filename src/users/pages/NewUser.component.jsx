@@ -21,8 +21,6 @@ const initialStates = {
   firstName: { value: '', isValid: false },
   lastName: { value: '', isValid: false },
   email: { value: '', isValid: false },
-  role: { value: 'admin', isValid: true },
-  status: { value: 'inactive', isValid: true },
 };
 
 const NewUser = () => {
@@ -98,7 +96,7 @@ const NewUser = () => {
           onInput={inputHandler}
         />
         <div className="form-control">
-          <label for="role">Role</label>
+          <label htmlFor="role">Role</label>
           <select name="role" id="role">
             <option value="accountant">accountant</option>
             <option value="admin">admin</option>
@@ -107,7 +105,7 @@ const NewUser = () => {
         </div>
 
         <div className="form-control">
-          <label for="status">Status</label>
+          <label htmlFor="status">Status</label>
           <select name="status" id="status">
             <option value="active">active</option>
             <option value="inactive">inactive</option>
